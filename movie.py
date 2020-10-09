@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import csv
 import tmdbsimple as tmdb
 from datetime import datetime
@@ -20,12 +21,11 @@ with open('movie.csv','r') as csv_file:
 			print('{}.\t  === {} 无tmdb记录 ==='.format(count, keyword))
 		elif record == 1:
 			s = search.results[0]
-			date = s['release_date']
 			title = s['title']
-			if date:
-				dt = datetime.strptime(date, '%Y-%m-%d')
-				print('{}.\t{} ({})'.format(count, title, dt.year))
-			else:
+			try:
+				year = s['release_date']
+				print('{}.\t{} ({})'.format(count, title, year))
+			except KeyError:
 				print('{}.\t{}'.format(count,title))
 		else:
 			print('{}.\t--- {} 在tmdb有{}条记录 ---'.format(count, keyword, record))

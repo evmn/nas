@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import csv
 import tmdbsimple as tmdb
 from datetime import datetime
@@ -5,10 +6,7 @@ tmdb.API_KEY = '79e3306ff10199a612de079442bc44'#自己到tmdb注册API_KEY
 search = tmdb.Search()
 with open('tv.csv','r') as csv_file:
 	csv_reader = csv.reader(csv_file, delimiter='@')
-	#video = open('kx','r')
-	#lines = video.readlines()
 	count = 0
-	#for l in lines:
 	for row in csv_reader:
 		keyword=row[0]
 		year=row[1]
@@ -23,12 +21,11 @@ with open('tv.csv','r') as csv_file:
 			print('{}.\t=== {} 无tmdb记录 ==='.format(count, keyword))
 		elif record == 1:
 			s = search.results[0]
-			date = s['first_air_date']
 			title = s['name']
-			if date:
-				dt = datetime.strptime(date, '%Y-%m-%d')
-				print('{}.\t{} ({})'.format(count, title, dt.year))
-			else:
+			try:
+				year = s['first_air_date'][0:4]
+				print('{}.\t{} ({})'.format(count, title, year))
+			except KeyError:
 				print('{}.\t{}'.format(count,title))
 		else:
 			print('{}.\t--- {} 在tmdb有{}条记录 ---'.format(count, keyword, record))
