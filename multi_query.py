@@ -11,16 +11,15 @@ def query(index, keyword, year=None):
 			response = search.multi(query=keyword, primary_release_year=year, language=Lang)
 		else:
 			response = search.multi(query=keyword, language=Lang)
-		record = len(search.results)
+		media_list = filter(search.results)
+		record = len(media_list)
 		if record >=1:
 			break;
 	if record < 1 :
 		print('{:02d}.\t === {} 无tmdb记录 ==='.format(index, keyword))
 	elif record == 1:
-		metainfo = search.results[0]
+		metainfo = media_list[0]
 		media_type = metainfo['media_type']
-		# Todo
-		# check if media_type == 'people'
 		info = read_info(metainfo, media_type)
 		
 		year = info['year']
@@ -33,7 +32,7 @@ def query(index, keyword, year=None):
 	else:
 		print('{:02d}.\t{} 在tmdb有{}条记录'.format(index, keyword, record))
 		n = 1
-		for metainfo in search.results:
+		for metainfo in media_list:
 			media_type = metainfo['media_type']
 			info = read_info(metainfo, media_type)
 			
@@ -45,8 +44,15 @@ def query(index, keyword, year=None):
 			else:
 				print('\t\t{}.{}  {}'.format(n, category, title ))
 			n = n + 1
+def filter(search_results):
+	medias = []
+	for metainfo in search_results:
+		if metainfo['media_type'] in ['movie','tv']:
+			medias.append(metainfo)
+	return medias
 
 def read_info(metainfo, media_type):
+# media_type is in ['movie','tv']
 	meta = dict()
 	if media_type == 'movie':
 		meta['type'] = '电影🎥'
