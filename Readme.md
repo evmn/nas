@@ -23,7 +23,7 @@ K: Seven Stories Movie 3 - Side:Green - The Overwritten World@2018
 特别的她 Alternative@2018
 ```
 
-运行tv.py，在tmdb查询tv.csv，运行结果如下:
+运行`multi_query.py`，在[tmdb](https://www.themoviedb.org/)查询`media.list`，运行结果如下:
 
 
 ```

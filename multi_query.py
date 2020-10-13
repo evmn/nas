@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import csv
 import tmdbsimple as tmdb
-
+# Default search language orders
 locale=['zh-CN', 'zh-TW', 'zh-HK','en', 'ja-JP', 'ko-KR']
 
 def query(index, keyword, year=None):
