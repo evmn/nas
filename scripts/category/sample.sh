@@ -15,6 +15,6 @@ do
 	        touch "f .S10E$i.wmv"
 	done
 	
-	touch "a song of ice and fire"
+	touch "a song of ice and fire" s000e sabed s00ed s45ed s5edf
 	cd ..
 done
